@@ -11,8 +11,21 @@ function App() {
   
   
   useEffect(() => {
-    ifClicked();
+    ifClicked(); ///body unload like html
+
   }, []);
+
+  
+
+
+  const handleKeyPress = (event) => {
+ 
+    if(event.key === 'Enter'){
+      ifClicked();
+      console.log('enter press here! ')
+    }
+  }
+
 
   function ifClicked() {
 
@@ -28,9 +41,14 @@ function App() {
           return res.json();
         } else {
           if (res.status === 404) {
+            weather.useState("");
             return alert("Oops, there seems to be an error!(wrong location)");
+           
           }
+
           alert("Oops, there seems to be an error!");
+          weather.useState("");
+
           throw new Error("You have an error");
         }
       })
@@ -65,6 +83,8 @@ function App() {
             onChange={(e) => setLocations(e.target.value)}
             placeholder="Enter location"
             className="location_input"
+          
+            onKeyDown={handleKeyPress}
           />
           <button className="location_searcher" onClick={ifClicked}>
             Search Location
